@@ -215,7 +215,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
                              :  "Maximum " + maxImageCount + " Photos");
             builder.setMessage(this.localization.has(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG)
                                ?this.localization.getString(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG)
-                               "You can only select " + maxImageCount + " photos at a time.");
+                               :"You can only select " + maxImageCount + " photos at a time.");
             builder.setPositiveButton(this.localization.has(LOCALIZATION_OK)?this.localization.getString(LOCALIZATION_OK):"OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) { 
                     dialog.cancel();
@@ -337,7 +337,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
     private void updateAcceptButton() {
         TextView action_done_btn = ((TextView) getActionBar().getCustomView().findViewById(fakeR.getId("id", "actionbar_done_textview")));
         action_done_btn.setEnabled(fileNames.size() != 0);
-        action_done_btn.setText(this.localization.has(LOCALIZATION_OK)?this.localization.getString(LOCALIZATION_OK):"OK")
+        action_done_btn.setText(this.localization.has(LOCALIZATION_OK)?this.localization.getString(LOCALIZATION_OK):"OK");
         getActionBar().getCustomView().findViewById(fakeR.getId("id", "actionbar_done")).setEnabled(fileNames.size() != 0);
     }
 
@@ -383,7 +383,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
                 | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
         actionBar.setCustomView(customActionBarView, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
-        ((TextView)customActionBarView.findViewById(fakeR.getId("id","actionbar_discard")).findViewById(fakeR.getId("id","actionbar_discard_textview")).setText(this.localization.has(LO))
+        ((TextView)customActionBarView.findViewById(fakeR.getId("id","actionbar_discard")).findViewById(fakeR.getId("id","actionbar_discard_textview")).setText(this.localization.has(LOCALIZATION_DISCARD)?this.localization.getString(LOCALIZATION_DISCARD):"Cancel");
     }
 
     private String getImageName(int position) {
