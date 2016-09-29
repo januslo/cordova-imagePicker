@@ -90,7 +90,6 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
     public static final String WIDTH_KEY = "WIDTH";
     public static final String HEIGHT_KEY = "HEIGHT";
     public static final String QUALITY_KEY = "QUALITY";
-    public static final String LOCALICATION_KEY="LOCALICATION";
     public static final String LOCALIZATION_OK="ok";
     public static final String LOCALIZATION_DISCARD="discard";
     public static final String LOCALIZATION_CHOOSER_NAME="chooser_name";
@@ -121,7 +120,16 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
     private int desiredWidth;
     private int desiredHeight;
     private int quality;
-    private JSONObject localization;
+    private String localizationOk;
+    private String localizationDiscard;
+    private String localizationChooserName;
+    private String localizationFreeVersion;
+    private String localizationErrorDatabase;
+    private String localizationRequestingThumbnaitls;
+    private String localizationProcessingImagesHeader;
+    private String localizationProcessingImagesMessage;
+    private String localizationMaximumSelectionCountHeader;
+    private String localizationMaximumSelectionCountMessage;
 
     private GridView gridView;
 
@@ -145,7 +153,16 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         desiredWidth = getIntent().getIntExtra(WIDTH_KEY, 0);
         desiredHeight = getIntent().getIntExtra(HEIGHT_KEY, 0);
         quality = getIntent().getIntExtra(QUALITY_KEY, 0);
-        localization = getIntent().getIntExtra(LOCALICATION_KEY,new JSONObject());
+        localizationOk = getIntent().getStringExtra(LOCALIZATION_OK,"");
+        localizationDiscard = getIntent().getStringExtra(LOCALIZATION_DISCARD,"");
+        localizationChooserName = getIntent().getStringExtra(LOCALIZATION_CHOOSER_NAME,"");
+        localizationFreeVersion = getIntent().getStringExtra(LOCALIZATION_FREE_VERSION,"");
+        localizationErrorDatabase = getIntent().getStringExtra(LOCALIZATION_ERROR_DATABASE,"");
+        localizationRequestingThumbnaitls = getIntent().getStringExtra(LOCALIZATION_REQUESTING_THUMBNAILS,"");
+        localizationProcessingImagesHeader = getIntent().getStringExtra(LOCALIZATION_PROCESSING_IMAGES_HEADER,"");
+        localizationProcessingImagesMessage = getIntent().getStringExtra(LOCALIZATION_PROCESSING_IMAGES_MESSAGE,"");
+        localizationMaximumSelectionCountHeader = getIntent().getStringExtra(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER,"");
+        localizationMaximumSelectionCountMessage = getIntent().getStringExtra(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG,"");
         maxImageCount = maxImages;
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -190,12 +207,8 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         setupHeader();
         updateAcceptButton();
         progress = new ProgressDialog(this);
-        progress.setTitle(this.localization.has(LOCALIZATION_PROCESSING_IMAGES_HEADER)
-                          ?this.localization.getString(LOCALIZATION_PROCESSING_IMAGES_HEADER)
-                          :"Processing Images");
-        progress.setMessage(this.localization.has(LOCALIZATION_PROCESSING_IMAGES_MESSAGE)
-                            ?this.localization.getString(LOCALIZATION_PROCESSING_IMAGES_MESSAGE)
-                            :"This may take a few moments");
+        progress.setTitle(localizationProcessingImagesHeader);
+        progress.setMessage(localizationProcessingImagesMessage);
     }
     
     @Override
@@ -210,13 +223,9 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         if (maxImages == 0 && isChecked) {
             isChecked = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(this.localization.has(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER)
-                             ?this.localization.getString(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER)
-                             :  "Maximum " + maxImageCount + " Photos");
-            builder.setMessage(this.localization.has(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG)
-                               ?this.localization.getString(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG)
-                               :"You can only select " + maxImageCount + " photos at a time.");
-            builder.setPositiveButton(this.localization.has(LOCALIZATION_OK)?this.localization.getString(LOCALIZATION_OK):"OK", new DialogInterface.OnClickListener() {
+            builder.setTitle(localizationMaximumSelectionCountHeader);
+            builder.setMessage(localizationMaximumSelectionCountMessage);
+            builder.setPositiveButton(localizationOk, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) { 
                     dialog.cancel();
                 }
@@ -337,7 +346,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
     private void updateAcceptButton() {
         TextView action_done_btn = ((TextView) getActionBar().getCustomView().findViewById(fakeR.getId("id", "actionbar_done_textview")));
         action_done_btn.setEnabled(fileNames.size() != 0);
-        action_done_btn.setText(this.localization.has(LOCALIZATION_OK)?this.localization.getString(LOCALIZATION_OK):"OK");
+        action_done_btn.setText(localizationOk);
         getActionBar().getCustomView().findViewById(fakeR.getId("id", "actionbar_done")).setEnabled(fileNames.size() != 0);
     }
 
@@ -384,11 +393,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         actionBar.setCustomView(customActionBarView, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         ((TextView)customActionBarView.findViewById(fakeR.getId("id","actionbar_discard")).findViewById(fakeR.getId("id","actionbar_discard_textview")))
-         .setText(
-                  this.localization.has(LOCALIZATION_DISCARD)
-                  ?this.localization.getString(LOCALIZATION_DISCARD)
-                  :"Cancel"
-                  );
+         .setText(localizationDiscard);
     }
 
     private String getImageName(int position) {

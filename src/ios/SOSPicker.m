@@ -28,12 +28,12 @@
 
 	// Create the an album controller and image picker
 	ELCAlbumPickerController *albumController = [[ELCAlbumPickerController alloc] init];
-    albumController.loadingTitle = [self.localization objectForKey:@"requesting_thumbnails"];
-    albumController.okBtnText = [self.localization objectForKey:@"ok"];
-    albumController.errorDesc = [self.localization objectForKey:@"error_database"];
-    albumController.chooserName = [self.localization objectForKey:@"chooser_name"];
-    albumController.maximumSelectionErrorHeader = [self.localization objectForKey:@"maximum_selection_count_error_header"];
-    albumController.maximumSelectionErrorMsg = [self.localization objectForKey:@"maximum_selection_count_error_message"];
+    albumController.loadingTitle = [options objectForKey:@"requesting_thumbnails"];
+    albumController.okBtnText = [options objectForKey:@"ok"];
+    albumController.errorDesc = [options objectForKey:@"error_database"];
+    albumController.chooserName = [options objectForKey:@"chooser_name"];
+    albumController.maximumSelectionErrorHeader = [options objectForKey:@"maximum_selection_count_error_header"];
+    albumController.maximumSelectionErrorMsg = [options objectForKey:@"maximum_selection_count_error_message"];
 	if (maximumImagesCount == 1) {
       albumController.immediateReturn = true;
       albumController.singleSelection = true;

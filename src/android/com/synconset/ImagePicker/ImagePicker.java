@@ -18,6 +18,16 @@ import android.util.Log;
 
 public class ImagePicker extends CordovaPlugin {
 	public static String TAG = "ImagePicker";
+    public static final String LOCALIZATION_OK="ok";
+    public static final String LOCALIZATION_DISCARD="discard";
+    public static final String LOCALIZATION_CHOOSER_NAME="chooser_name";
+    public static final String LOCALIZATION_FREE_VERSION="free_version_label";
+    public static final String LOCALIZATION_ERROR_DATABASE="error_database";
+    public static final String LOCALIZATION_REQUESTING_THUMBNAILS="requesting_thumbnails";
+    public static final String LOCALIZATION_PROCESSING_IMAGES_HEADER="processing_images_header";
+    public static final String LOCALIZATION_PROCESSING_IMAGES_MESSAGE="processing_images_message";
+    public static final String LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER="maximum_selection_count_error_header";
+    public static final String LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG="maximum_selection_count_error_message";
 	 
 	private CallbackContext callbackContext;
 	private JSONObject params;
@@ -44,15 +54,21 @@ public class ImagePicker extends CordovaPlugin {
 			if (this.params.has("quality")) {
 				quality = this.params.getInt("quality");
 			}
-            if (this.params.has("localization")){
-                localization=this.params.getJSONObject("localization");
-            }
-			intent.putExtra("MAX_IMAGES", max);
+            intent.putExtra("MAX_IMAGES", max);
 			intent.putExtra("WIDTH", desiredWidth);
 			intent.putExtra("HEIGHT", desiredHeight);
 			intent.putExtra("QUALITY", quality);
-            intent.putExtra("LOCALIZATION",localization);
-			if (this.cordova != null) {
+            intent.putExtra(LOCALIZATION_OK,this.params.has(LOCALIZATION_OK)?this.params.getString(LOCALIZATION_OK):"");
+            intent.putExtra(LOCALIZATION_DISCARD,this.params.has(LOCALIZATION_DISCARD)?this.params.getString(LOCALIZATION_DISCARD):"");
+            intent.putExtra(LOCALIZATION_CHOOSER_NAME,this.params.has(LOCALIZATION_CHOOSER_NAME)?this.params.getString(LOCALIZATION_CHOOSER_NAME):"");
+            intent.putExtra(LOCALIZATION_FREE_VERSION,this.params.has(LOCALIZATION_FREE_VERSION)?this.params.getString(LOCALIZATION_FREE_VERSION):"");
+            intent.putExtra(LOCALIZATION_ERROR_DATABASE,this.params.has(LOCALIZATION_ERROR_DATABASE)?this.params.getString(LOCALIZATION_ERROR_DATABASE):"");
+            intent.putExtra(LOCALIZATION_REQUESTING_THUMBNAILS,this.params.has(LOCALIZATION_REQUESTING_THUMBNAILS)?this.params.getString(LOCALIZATION_REQUESTING_THUMBNAILS):"");
+            intent.putExtra(LOCALIZATION_PROCESSING_IMAGES_HEADER,this.params.has(LOCALIZATION_PROCESSING_IMAGES_HEADER)?this.params.getString(LOCALIZATION_PROCESSING_IMAGES_HEADER):"");
+            intent.putExtra(LOCALIZATION_PROCESSING_IMAGES_MESSAGE,this.params.has(LOCALIZATION_PROCESSING_IMAGES_MESSAGE)?this.params.getString(LOCALIZATION_PROCESSING_IMAGES_MESSAGE):"");
+            intent.putExtra(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER,this.params.has(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER)?this.params.getString(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER):"");
+            intent.putExtra(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG,this.params.has(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG)?this.params.getString(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG):"");
+            if (this.cordova != null) {
 				this.cordova.startActivityForResult((CordovaPlugin) this, intent, 0);
 			}
 		}

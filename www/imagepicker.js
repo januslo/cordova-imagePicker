@@ -20,7 +20,16 @@ var ImagePicker = function() {
 *		         image will be returned)
 *		.height - height to resize image to
 *		.quality - quality of resized image, defaults to 100
-*       .localization - the localization messages with keys: ok, discard,chooser_name,free_version_label,error_database,requesting_thumbnails,processing_images_header,processing_images_message,maximum_selection_count_error_header,maximum_selection_count_error_message
+*       .ok - the localization text
+*       .discard- the localization text
+*       .chooser_name- the localization text
+*       .free_version_label- the localization text
+*       .error_database- the localization text
+*       .requesting_thumbnails- the localization text
+*       .processing_images_header- the localization text
+*       .processing_images_message- the localization text
+*       .maximum_selection_count_error_header- the localization text
+*       .maximum_selection_count_error_message- the localization text
 */
 ImagePicker.prototype.getPictures = function(success, fail, options) {
 	if (!options) {
@@ -32,18 +41,16 @@ ImagePicker.prototype.getPictures = function(success, fail, options) {
 		width: options.width ? options.width : 0,
 		height: options.height ? options.height : 0,
 		quality: options.quality ? options.quality : 100,
-		localization:options.localization?options.localization:{
-			ok:"OK",
-			discard:"Cancel",
-			chooser_name:"MultiImageChooser",
-			free_version_label:"Free version - Images left: %d",
-			error_database:"There was an error opening the images database. Please report the problem.",
-			requesting_thumbnails:"Requesting thumbnails, please be patient",
-			processing_images_header:"Processing Images",
-			processing_images_message:"This may take a few moments",
-			maximum_selection_count_error_header:"Limit reached",
-			maximum_selection_count_error_message:"You can only select %d photos at once."
-		}
+		ok: options.ok ? options.ok :"OK",
+		discard: options.discard ? options.discard :"Cancel",
+		chooser_name: options.chooser_name ? options.chooser_name :"MultiImageChooser",
+		free_version_label: options.free_version_label ? options.free_version_label :"Free version",
+		error_database: options.error_database ? options.error_database :"There was an error opening the images database. Please report the problem.",
+		requesting_thumbnails: options.requesting_thumbnails ? options.requesting_thumbnails :"Requesting thumbnails, please be patient",
+		processing_images_header: options.processing_images_header ? options.processing_images_header :"Processing Images",
+		processing_images_message: options.processing_images_message ? options.processing_images_message :"This may take a few moments",
+		maximum_selection_count_error_header: options.maximum_selection_count_error_header ? options.maximum_selection_count_error_header :"Limit reached",
+		maximum_selection_count_error_message: options.maximum_selection_count_error_message ? options.maximum_selection_count_error_message :("You can only select "+(options.maximumImagesCount ? options.maximumImagesCount : 15)+" photos at once.")
 	};
 
 	return cordova.exec(success, fail, "ImagePicker", "getPictures", [params]);
