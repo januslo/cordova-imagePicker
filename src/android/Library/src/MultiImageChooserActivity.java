@@ -153,16 +153,16 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         desiredWidth = getIntent().getIntExtra(WIDTH_KEY, 0);
         desiredHeight = getIntent().getIntExtra(HEIGHT_KEY, 0);
         quality = getIntent().getIntExtra(QUALITY_KEY, 0);
-        localizationOk = getIntent().getStringExtra(LOCALIZATION_OK,"");
-        localizationDiscard = getIntent().getStringExtra(LOCALIZATION_DISCARD,"");
-        localizationChooserName = getIntent().getStringExtra(LOCALIZATION_CHOOSER_NAME,"");
-        localizationFreeVersion = getIntent().getStringExtra(LOCALIZATION_FREE_VERSION,"");
-        localizationErrorDatabase = getIntent().getStringExtra(LOCALIZATION_ERROR_DATABASE,"");
-        localizationRequestingThumbnaitls = getIntent().getStringExtra(LOCALIZATION_REQUESTING_THUMBNAILS,"");
-        localizationProcessingImagesHeader = getIntent().getStringExtra(LOCALIZATION_PROCESSING_IMAGES_HEADER,"");
-        localizationProcessingImagesMessage = getIntent().getStringExtra(LOCALIZATION_PROCESSING_IMAGES_MESSAGE,"");
-        localizationMaximumSelectionCountHeader = getIntent().getStringExtra(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER,"");
-        localizationMaximumSelectionCountMessage = getIntent().getStringExtra(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG,"");
+        localizationOk = getIntent().getStringExtra(LOCALIZATION_OK);
+        localizationDiscard = getIntent().getStringExtra(LOCALIZATION_DISCARD);
+        localizationChooserName = getIntent().getStringExtra(LOCALIZATION_CHOOSER_NAME);
+        localizationFreeVersion = getIntent().getStringExtra(LOCALIZATION_FREE_VERSION);
+        localizationErrorDatabase = getIntent().getStringExtra(LOCALIZATION_ERROR_DATABASE);
+        localizationRequestingThumbnaitls = getIntent().getStringExtra(LOCALIZATION_REQUESTING_THUMBNAILS);
+        localizationProcessingImagesHeader = getIntent().getStringExtra(LOCALIZATION_PROCESSING_IMAGES_HEADER);
+        localizationProcessingImagesMessage = getIntent().getStringExtra(LOCALIZATION_PROCESSING_IMAGES_MESSAGE);
+        localizationMaximumSelectionCountHeader = getIntent().getStringExtra(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER);
+        localizationMaximumSelectionCountMessage = getIntent().getStringExtra(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG);
         maxImageCount = maxImages;
 
         Display display = getWindowManager().getDefaultDisplay();
