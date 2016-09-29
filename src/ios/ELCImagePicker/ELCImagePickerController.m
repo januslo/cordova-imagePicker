@@ -16,6 +16,14 @@
 @implementation ELCImagePickerController
 
 //Using auto synthesizers
+@synthesize okBtnText;
+@synthesize cancelBtnText;
+@synthesize errorDesc;
+@synthesize multychooserName;
+@synthesize singlechooserName;
+@synthesize loadingName;
+@synthesize maximumSelectionErrorHeader;
+@synthesize maximumSelectionErrorMsg;
 
 - (id)initImagePicker
 {
@@ -26,10 +34,12 @@
         self.maximumImagesCount = 4;
         [albumPicker setParent:self];
     }
-    self.loadingTitle = albumPicker.loadingTitle;
     self.okBtnText = albumPicker.okBtnText;
+    self.cancelBtnText = albumPicker.cancelBtnText;
     self.errorDesc = albumPicker.errorDesc;
-    self.chooserName = albumPicker.chooserName;
+    self.multychooserName = albumPicker.multychooserName;
+    self.singlechooserName = albumPicker.singlechooserName;
+    self.loadingName = albumPicker.loadingName;
     self.maximumSelectionErrorHeader = albumPicker.maximumSelectionErrorHeader;
     self.maximumSelectionErrorMsg = albumPicker.maximumSelectionErrorMsg;
     return self;

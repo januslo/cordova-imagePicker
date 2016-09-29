@@ -17,17 +17,32 @@
 @implementation ELCAlbumPickerController
 
 //Using auto synthesizers
-
+@synthesize okBtnText;
+@synthesize cancelBtnText;
+@synthesize errorDesc;
+@synthesize multychooserName;
+@synthesize singlechooserName;
+@synthesize loadingName;
+@synthesize maximumSelectionErrorHeader;
+@synthesize maximumSelectionErrorMsg;
 #pragma mark -
 #pragma mark View lifecycle
+
+- (id)initWithLoadingTitle:(NSString *)loadingTitle
+{
+    self = [super init];
+    self.loadingName = loadingTitle;
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
-	[self.navigationItem setTitle:self.loadingTitle];
+	[self.navigationItem setTitle: self.loadingName];
 
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self.parent action:@selector(cancelImagePicker)];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:self.cancelBtnText style: UIBarButtonSystemItemCancel target:self.parent action:@selector(cancelImagePicker)];
+    [cancelButton setTitle:self.cancelBtnText];
 	[self.navigationItem setRightBarButtonItem:cancelButton];
 
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
@@ -84,7 +99,7 @@
 - (void)reloadTableView
 {
 	[self.tableView reloadData];
-	[self.navigationItem setTitle:self.chooserName];
+	[self.navigationItem setTitle:self.multychooserName];
 }
 
 - (BOOL)shouldSelectAsset:(ELCAsset *)asset previousCount:(NSUInteger)previousCount
@@ -141,7 +156,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	ELCAssetTablePicker *picker = [[ELCAssetTablePicker alloc] initWithNibName: nil bundle: nil];
+	ELCAssetTablePicker *picker = [[ELCAssetTablePicker alloc] initWithLoadingName:self.loadingName];
 	picker.parent = self;
 
     picker.assetGroup = [self.assetGroups objectAtIndex:indexPath.row];
@@ -149,7 +164,13 @@
     
 	picker.assetPickerFilterDelegate = self.assetPickerFilterDelegate;
 	picker.immediateReturn = self.immediateReturn;
-   picker.singleSelection = self.singleSelection;
+    picker.singleSelection = self.singleSelection;
+    if(picker.singleSelection == true){
+        picker.chooserName = self.singlechooserName;
+    }else{
+        picker.chooserName = self.multychooserName;
+    }
+    picker.okBtnText = self.okBtnText;
 	
 	[self.navigationController pushViewController:picker animated:YES];
 }

@@ -20,7 +20,9 @@ public class ImagePicker extends CordovaPlugin {
 	public static String TAG = "ImagePicker";
     public static final String LOCALIZATION_OK="ok";
     public static final String LOCALIZATION_DISCARD="discard";
-    public static final String LOCALIZATION_CHOOSER_NAME="chooser_name";
+    public static final String LOCALIZATION_MULTY_CHOOSER_NAME="multy_chooser_name";
+    public static final String LOCALIZATION_SINGLE_CHOOSER_NAME="single_chooser_name";
+    public static final String LOCALIZATION_LOADING_NAME="loading_name";
     public static final String LOCALIZATION_FREE_VERSION="free_version_label";
     public static final String LOCALIZATION_ERROR_DATABASE="error_database";
     public static final String LOCALIZATION_REQUESTING_THUMBNAILS="requesting_thumbnails";
@@ -60,7 +62,9 @@ public class ImagePicker extends CordovaPlugin {
 			intent.putExtra("QUALITY", quality);
             intent.putExtra(LOCALIZATION_OK,this.params.has(LOCALIZATION_OK)?this.params.getString(LOCALIZATION_OK):"");
             intent.putExtra(LOCALIZATION_DISCARD,this.params.has(LOCALIZATION_DISCARD)?this.params.getString(LOCALIZATION_DISCARD):"");
-            intent.putExtra(LOCALIZATION_CHOOSER_NAME,this.params.has(LOCALIZATION_CHOOSER_NAME)?this.params.getString(LOCALIZATION_CHOOSER_NAME):"");
+            intent.putExtra(LOCALIZATION_MULTY_CHOOSER_NAME,this.params.has(LOCALIZATION_MULTY_CHOOSER_NAME)?this.params.getString(LOCALIZATION_MULTY_CHOOSER_NAME):"");
+            intent.putExtra(LOCALIZATION_SINGLE_CHOOSER_NAME,this.params.has(LOCALIZATION_SINGLE_CHOOSER_NAME)?this.params.getString(LOCALIZATION_SINGLE_CHOOSER_NAME):"");
+            intent.putExtra(LOCALIZATION_LOADING_NAME,this.params.has(LOCALIZATION_LOADING_NAME)?this.params.getString(LOCALIZATION_LOADING_NAME):"");
             intent.putExtra(LOCALIZATION_FREE_VERSION,this.params.has(LOCALIZATION_FREE_VERSION)?this.params.getString(LOCALIZATION_FREE_VERSION):"");
             intent.putExtra(LOCALIZATION_ERROR_DATABASE,this.params.has(LOCALIZATION_ERROR_DATABASE)?this.params.getString(LOCALIZATION_ERROR_DATABASE):"");
             intent.putExtra(LOCALIZATION_REQUESTING_THUMBNAILS,this.params.has(LOCALIZATION_REQUESTING_THUMBNAILS)?this.params.getString(LOCALIZATION_REQUESTING_THUMBNAILS):"");

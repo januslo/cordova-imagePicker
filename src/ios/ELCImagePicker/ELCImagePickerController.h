@@ -34,12 +34,14 @@
 
 @property (nonatomic, weak) id<ELCImagePickerControllerDelegate> imagePickerDelegate;
 @property (nonatomic, assign) NSInteger maximumImagesCount;
-@property (nonatomic, assign) NSString *loadingTitle;
-@property (nonatomic, assign) NSString *okBtnText;
-@property (nonatomic, assign) NSString *errorDesc;
-@property (nonatomic, assign) NSString *chooserName;
-@property (nonatomic, assign) NSString *maximumSelectionErrorHeader;
-@property (nonatomic, assign) NSString *maximumSelectionErrorMsg;
+@property (copy) NSString *okBtnText;
+@property (copy) NSString *cancelBtnText;
+@property (copy) NSString *errorDesc;
+@property (copy) NSString *multychooserName;
+@property (copy) NSString *singlechooserName;
+@property (copy) NSString *loadingName;
+@property (copy) NSString *maximumSelectionErrorHeader;
+@property (copy) NSString *maximumSelectionErrorMsg;
 /**
  * YES if the picker should return the original image,
  * or NO for an image suitable for displaying full screen on the device.

@@ -1,3 +1,4 @@
+cordova.define("cordova-plugin-image-picker.ImagePicker", function(require, exports, module) {
 /*global cordova,window,console*/
 /**
  * An Image Picker plugin for Cordova
@@ -22,7 +23,9 @@ var ImagePicker = function() {
 *		.quality - quality of resized image, defaults to 100
 *       .ok - the localization text
 *       .discard- the localization text
-*       .chooser_name- the localization text
+*       .multy_chooser_name- the localization text
+*       .single_chooser_name -the localization text
+*       .loading_name - the localization text
 *       .free_version_label- the localization text
 *       .error_database- the localization text
 *       .requesting_thumbnails- the localization text
@@ -41,9 +44,11 @@ ImagePicker.prototype.getPictures = function(success, fail, options) {
 		width: options.width ? options.width : 0,
 		height: options.height ? options.height : 0,
 		quality: options.quality ? options.quality : 100,
-		ok: options.ok ? options.ok :"OK",
+		ok: options.ok ? options.ok :"I am not OK",
 		discard: options.discard ? options.discard :"Cancel",
-		chooser_name: options.chooser_name ? options.chooser_name :"MultiImageChooser",
+		multy_chooser_name: options.multy_chooser_name ? options.multy_chooser_name :"Pick photos",
+        single_chooser_name:options.single_chooser_name?options.single_chooser_name:"Pick photo",
+        loading_name:options.loading_name?options.loading_name:"Loading",
 		free_version_label: options.free_version_label ? options.free_version_label :"Free version",
 		error_database: options.error_database ? options.error_database :"There was an error opening the images database. Please report the problem.",
 		requesting_thumbnails: options.requesting_thumbnails ? options.requesting_thumbnails :"Requesting thumbnails, please be patient",
@@ -57,3 +62,5 @@ ImagePicker.prototype.getPictures = function(success, fail, options) {
 };
 
 window.imagePicker = new ImagePicker();
+
+});

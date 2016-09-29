@@ -92,7 +92,9 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
     public static final String QUALITY_KEY = "QUALITY";
     public static final String LOCALIZATION_OK="ok";
     public static final String LOCALIZATION_DISCARD="discard";
-    public static final String LOCALIZATION_CHOOSER_NAME="chooser_name";
+    public static final String LOCALIZATION_MULTY_CHOOSER_NAME="multy_chooser_name";
+    public static final String LOCALIZATION_SINGLE_CHOOSER_NAME="single_chooser_name";
+    public static final String LOCALIZATION_LOADING_NAME="loading_name";
     public static final String LOCALIZATION_FREE_VERSION="free_version_label";
     public static final String LOCALIZATION_ERROR_DATABASE="error_database";
     public static final String LOCALIZATION_REQUESTING_THUMBNAILS="requesting_thumbnails";
@@ -122,7 +124,9 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
     private int quality;
     private String localizationOk;
     private String localizationDiscard;
-    private String localizationChooserName;
+    private String localizationMultyChooserName;
+    private String localizationSingleChooserName;
+    private String localizationLoadingName;
     private String localizationFreeVersion;
     private String localizationErrorDatabase;
     private String localizationRequestingThumbnaitls;
@@ -155,7 +159,9 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         quality = getIntent().getIntExtra(QUALITY_KEY, 0);
         localizationOk = getIntent().getStringExtra(LOCALIZATION_OK);
         localizationDiscard = getIntent().getStringExtra(LOCALIZATION_DISCARD);
-        localizationChooserName = getIntent().getStringExtra(LOCALIZATION_CHOOSER_NAME);
+        localizationMultyChooserName = getIntent().getStringExtra(LOCALIZATION_MULTY_CHOOSER_NAME);
+        localizationSingleChooserName = getIntent().getStringExtra(LOCALIZATION_SINGLE_CHOOSER_NAME);
+        localizationLoadingName = getIntent().getStringExtra(LOCALIZATION_LOADING_NAME);
         localizationFreeVersion = getIntent().getStringExtra(LOCALIZATION_FREE_VERSION);
         localizationErrorDatabase = getIntent().getStringExtra(LOCALIZATION_ERROR_DATABASE);
         localizationRequestingThumbnaitls = getIntent().getStringExtra(LOCALIZATION_REQUESTING_THUMBNAILS);

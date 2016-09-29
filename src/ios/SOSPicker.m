@@ -26,11 +26,13 @@
 	self.quality = [[options objectForKey:@"quality"] integerValue];
 
 	// Create the an album controller and image picker
-	ELCAlbumPickerController *albumController = [[ELCAlbumPickerController alloc] init];
-    albumController.loadingTitle = [options objectForKey:@"requesting_thumbnails"];
+	ELCAlbumPickerController *albumController = [[ELCAlbumPickerController alloc] initWithLoadingTitle: [options objectForKey:@"loading_name"]];
     albumController.okBtnText = [options objectForKey:@"ok"];
+    albumController.cancelBtnText = [options objectForKey:@"discard"];
     albumController.errorDesc = [options objectForKey:@"error_database"];
-    albumController.chooserName = [options objectForKey:@"chooser_name"];
+    albumController.multychooserName = [options objectForKey:@"multy_chooser_name"];
+    albumController.singlechooserName = [options objectForKey:@"single_chooser_name"];
+    albumController.loadingName = [options objectForKey:@"loading_name"];
     albumController.maximumSelectionErrorHeader = [options objectForKey:@"maximum_selection_count_error_header"];
     albumController.maximumSelectionErrorMsg = [options objectForKey:@"maximum_selection_count_error_message"];
 	if (maximumImagesCount == 1) {
@@ -42,7 +44,15 @@
    }
    
    ELCImagePickerController *imagePicker = [[ELCImagePickerController alloc] initWithRootViewController:albumController];
-  
+    imagePicker.loadingName = albumController.loadingName;
+    imagePicker.okBtnText = albumController.okBtnText;
+    imagePicker.cancelBtnText = albumController.cancelBtnText;
+    imagePicker.errorDesc = albumController.errorDesc;
+    imagePicker.multychooserName = albumController.multychooserName;
+    imagePicker.singlechooserName =albumController.singlechooserName;
+    imagePicker.maximumSelectionErrorHeader = albumController.maximumSelectionErrorHeader;
+    imagePicker.maximumSelectionErrorMsg = albumController.maximumSelectionErrorMsg;
+
    imagePicker.maximumImagesCount = maximumImagesCount;
    imagePicker.returnsOriginalImage = 1;
    imagePicker.imagePickerDelegate = self;

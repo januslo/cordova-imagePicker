@@ -19,7 +19,9 @@
 @implementation ELCAssetTablePicker
 
 //Using auto synthesizers
-
+@synthesize chooserName;
+@synthesize loadingName;
+@synthesize okBtnText;
 - (id)init
 {
     self = [super init];
@@ -28,6 +30,12 @@
         //So that we don't have a divide by 0 scenario
         self.columns = 4;
     }
+    return self;
+}
+-(id)initWithLoadingName:(NSString *) name
+{
+    self = [super initWithNibName:nil bundle:nil];
+    self.loadingName = name;
     return self;
 }
 
@@ -42,9 +50,9 @@
     if (self.immediateReturn) {
         
     } else {
-        UIBarButtonItem *doneButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction:)];
+        UIBarButtonItem *doneButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.okBtnText style:UIBarButtonItemStyleDone target:self action:@selector(doneAction:)];
         [self.navigationItem setRightBarButtonItem:doneButtonItem];
-        [self.navigationItem setTitle:@"Loading..."];
+        [self.navigationItem setTitle:self.loadingName];
     }
 
 	[self performSelectorInBackground:@selector(preparePhotos) withObject:nil];
@@ -107,7 +115,7 @@
                                                       animated:NO];
             }
             
-            [self.navigationItem setTitle:self.singleSelection ? @"Pick Photo" : @"Pick Photos"];
+            [self.navigationItem setTitle: self.title];
         });
     }
 }

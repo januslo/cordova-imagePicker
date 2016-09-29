@@ -19,10 +19,13 @@
 @property (nonatomic, strong) IBOutlet UILabel *selectedAssetsLabel;
 @property (nonatomic, assign) BOOL singleSelection;
 @property (nonatomic, assign) BOOL immediateReturn;
+@property (copy) NSString *chooserName;
+@property (copy) NSString *loadingName;
+@property (copy) NSString *okBtnText;
 
 // optional, can be used to filter the assets displayed
 @property(nonatomic, weak) id<ELCAssetPickerFilterDelegate> assetPickerFilterDelegate;
-
+-(id)initWithLoadingName:(NSString *)name;
 - (int)totalSelectedAssets;
 - (void)preparePhotos;
 
