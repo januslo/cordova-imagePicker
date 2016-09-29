@@ -383,7 +383,12 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
                 | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
         actionBar.setCustomView(customActionBarView, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
-        ((TextView)customActionBarView.findViewById(fakeR.getId("id","actionbar_discard")).findViewById(fakeR.getId("id","actionbar_discard_textview")).setText(this.localization.has(LOCALIZATION_DISCARD)?this.localization.getString(LOCALIZATION_DISCARD):"Cancel");
+        ((TextView)customActionBarView.findViewById(fakeR.getId("id","actionbar_discard")).findViewById(fakeR.getId("id","actionbar_discard_textview")))
+         .setText(
+                  this.localization.has(LOCALIZATION_DISCARD)
+                  ?this.localization.getString(LOCALIZATION_DISCARD)
+                  :"Cancel"
+                  );
     }
 
     private String getImageName(int position) {
