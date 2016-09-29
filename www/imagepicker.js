@@ -20,6 +20,7 @@ var ImagePicker = function() {
 *		         image will be returned)
 *		.height - height to resize image to
 *		.quality - quality of resized image, defaults to 100
+*       .localization - the localization messages with keys: ok, discard,chooser_name,free_version_label,error_database,requesting_thumbnails,processing_images_header,processing_images_message,maximum_selection_count_error_header,maximum_selection_count_error_message
 */
 ImagePicker.prototype.getPictures = function(success, fail, options) {
 	if (!options) {
@@ -30,7 +31,19 @@ ImagePicker.prototype.getPictures = function(success, fail, options) {
 		maximumImagesCount: options.maximumImagesCount ? options.maximumImagesCount : 15,
 		width: options.width ? options.width : 0,
 		height: options.height ? options.height : 0,
-		quality: options.quality ? options.quality : 100
+		quality: options.quality ? options.quality : 100,
+		localization:options.localization?options.localization:{
+			ok:"OK",
+			discard:"Cancel",
+			chooser_name:"MultiImageChooser",
+			free_version_label:"Free version - Images left: %d",
+			error_database:"There was an error opening the images database. Please report the problem.",
+			requesting_thumbnails:"Requesting thumbnails, please be patient",
+			processing_images_header:"Processing Images",
+			processing_images_message:"This may take a few moments",
+			maximum_selection_count_error_header:"Limit reached",
+			maximum_selection_count_error_message:"You can only select %d photos at once."
+		}
 	};
 
 	return cordova.exec(success, fail, "ImagePicker", "getPictures", [params]);

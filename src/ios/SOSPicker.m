@@ -24,10 +24,16 @@
 	self.width = [[options objectForKey:@"width"] integerValue];
 	self.height = [[options objectForKey:@"height"] integerValue];
 	self.quality = [[options objectForKey:@"quality"] integerValue];
+    self.localization = [options objectForKey:@"localization"]
 
 	// Create the an album controller and image picker
 	ELCAlbumPickerController *albumController = [[ELCAlbumPickerController alloc] init];
-	
+    albumController.loadingTitle = [self.localization objectForKey:@"requesting_thumbnails"];
+    albumController.okBtnText = [self.localization objectForKey:@"ok"];
+    albumController.errorDesc = [self.localization objectForKey:@"error_database"];
+    albumController.chooserName = [self.localization objectForKey:@"chooser_name"];
+    albumController.maximumSelectionErrorHeader = [self.localization objectForKey:@"maximum_selection_count_error_header"];
+    albumController.maximumSelectionErrorMsg = [self.localization objectForKey:@"maximum_selection_count_error_message"];
 	if (maximumImagesCount == 1) {
       albumController.immediateReturn = true;
       albumController.singleSelection = true;
@@ -37,6 +43,7 @@
    }
    
    ELCImagePickerController *imagePicker = [[ELCImagePickerController alloc] initWithRootViewController:albumController];
+  
    imagePicker.maximumImagesCount = maximumImagesCount;
    imagePicker.returnsOriginalImage = 1;
    imagePicker.imagePickerDelegate = self;

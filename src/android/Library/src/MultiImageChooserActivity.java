@@ -42,6 +42,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.synconset.FakeR;
 import android.app.Activity;
 import android.app.ActionBar;
@@ -86,6 +90,17 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
     public static final String WIDTH_KEY = "WIDTH";
     public static final String HEIGHT_KEY = "HEIGHT";
     public static final String QUALITY_KEY = "QUALITY";
+    public static final String LOCALICATION_KEY="LOCALICATION";
+    public static final String LOCALIZATION_OK="ok";
+    public static final String LOCALIZATION_DISCARD="discard";
+    public static final String LOCALIZATION_CHOOSER_NAME="chooser_name";
+    public static final String LOCALIZATION_FREE_VERSION="free_version_label";
+    public static final String LOCALIZATION_ERROR_DATABASE="error_database";
+    public static final String LOCALIZATION_REQUESTING_THUMBNAILS="requesting_thumbnails";
+    public static final String LOCALIZATION_PROCESSING_IMAGES_HEADER="processing_images_header";
+    public static final String LOCALIZATION_PROCESSING_IMAGES_MESSAGE="processing_images_message";
+    public static final String LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER="maximum_selection_count_error_header";
+    public static final String LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG="maximum_selection_count_error_message";
 
     private ImageAdapter ia;
 
@@ -106,6 +121,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
     private int desiredWidth;
     private int desiredHeight;
     private int quality;
+    private JSONObject localization;
 
     private GridView gridView;
 
@@ -129,6 +145,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         desiredWidth = getIntent().getIntExtra(WIDTH_KEY, 0);
         desiredHeight = getIntent().getIntExtra(HEIGHT_KEY, 0);
         quality = getIntent().getIntExtra(QUALITY_KEY, 0);
+        localization = getIntent().getIntExtra(LOCALICATION_KEY,new JSONObject());
         maxImageCount = maxImages;
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -173,8 +190,12 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         setupHeader();
         updateAcceptButton();
         progress = new ProgressDialog(this);
-        progress.setTitle("Processing Images");
-        progress.setMessage("This may take a few moments");
+        progress.setTitle(this.localization.has(LOCALIZATION_PROCESSING_IMAGES_HEADER)
+                          ?this.localization.getString(LOCALIZATION_PROCESSING_IMAGES_HEADER)
+                          :"Processing Images");
+        progress.setMessage(this.localization.has(LOCALIZATION_PROCESSING_IMAGES_MESSAGE)
+                            ?this.localization.getString(LOCALIZATION_PROCESSING_IMAGES_MESSAGE)
+                            :"This may take a few moments");
     }
     
     @Override
@@ -189,9 +210,13 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         if (maxImages == 0 && isChecked) {
             isChecked = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Maximum " + maxImageCount + " Photos");
-            builder.setMessage("You can only select " + maxImageCount + " photos at a time.");
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            builder.setTitle(this.localization.has(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER)
+                             ?this.localization.getString(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER)
+                             :  "Maximum " + maxImageCount + " Photos");
+            builder.setMessage(this.localization.has(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG)
+                               ?this.localization.getString(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG)
+                               "You can only select " + maxImageCount + " photos at a time.");
+            builder.setPositiveButton(this.localization.has(LOCALIZATION_OK)?this.localization.getString(LOCALIZATION_OK):"OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) { 
                     dialog.cancel();
                 }
@@ -310,8 +335,9 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
      * Helper Methods
      ********************/
     private void updateAcceptButton() {
-        ((TextView) getActionBar().getCustomView().findViewById(fakeR.getId("id", "actionbar_done_textview")))
-                .setEnabled(fileNames.size() != 0);
+        TextView action_done_btn = ((TextView) getActionBar().getCustomView().findViewById(fakeR.getId("id", "actionbar_done_textview")));
+        action_done_btn.setEnabled(fileNames.size() != 0);
+        action_done_btn.setText(this.localization.has(LOCALIZATION_OK)?this.localization.getString(LOCALIZATION_OK):"OK")
         getActionBar().getCustomView().findViewById(fakeR.getId("id", "actionbar_done")).setEnabled(fileNames.size() != 0);
     }
 
@@ -357,6 +383,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
                 | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
         actionBar.setCustomView(customActionBarView, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
+        ((TextView)customActionBarView.findViewById(fakeR.getId("id","actionbar_discard")).findViewById(fakeR.getId("id","actionbar_discard_textview")).setText(this.localization.has(LO))
     }
 
     private String getImageName(int position) {

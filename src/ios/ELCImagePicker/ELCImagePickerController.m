@@ -26,6 +26,12 @@
         self.maximumImagesCount = 4;
         [albumPicker setParent:self];
     }
+    self.loadingTitle = albumPicker.loadingTitle;
+    self.okBtnText = albumPicker.okBtnText;
+    self.errorDesc = albumPicker.errorDesc;
+    self.chooserName = albumPicker.chooserName;
+    self.maximumSelectionErrorHeader = albumPicker.maximumSelectionErrorHeader;
+    self.maximumSelectionErrorMsg = albumPicker.maximumSelectionErrorMsg;
     return self;
 }
 
@@ -49,13 +55,13 @@
 {
     BOOL shouldSelect = previousCount < self.maximumImagesCount;
     if (!shouldSelect) {
-        NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Maximum %d photos.", nil), self.maximumImagesCount];
-        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"You can only select %d photos at a time.", nil), self.maximumImagesCount];
+        NSString *title = self.maximumSelectionErrorHeader; //[NSString stringWithFormat:NSLocalizedString(@"Maximum %d photos.", nil), self.maximumImagesCount];
+        NSString *message = self.maximumSelectionErrorMsg; //[NSString stringWithFormat:NSLocalizedString(@"You can only select %d photos at a time.", nil), self.maximumImagesCount];
         [[[UIAlertView alloc] initWithTitle:title
                                     message:message
                                    delegate:nil
                           cancelButtonTitle:nil
-                          otherButtonTitles:NSLocalizedString(@"Okay", nil), nil] show];
+                          otherButtonTitles:self.okBtnText, nil] show];
     }
     return shouldSelect;
 }
