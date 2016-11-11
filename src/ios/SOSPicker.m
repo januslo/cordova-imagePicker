@@ -54,7 +54,7 @@
     imagePicker.maximumSelectionErrorMsg = albumController.maximumSelectionErrorMsg;
 
    imagePicker.maximumImagesCount = maximumImagesCount;
-   imagePicker.returnsOriginalImage = 1;
+   imagePicker.returnsOriginalImage = NO;//To ignore the original orientation-- 20161111 janus
    imagePicker.imagePickerDelegate = self;
 
    albumController.parent = imagePicker;
