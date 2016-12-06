@@ -30,6 +30,7 @@ public class ImagePicker extends CordovaPlugin {
     public static final String LOCALIZATION_PROCESSING_IMAGES_MESSAGE="processing_images_message";
     public static final String LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER="maximum_selection_count_error_header";
     public static final String LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG="maximum_selection_count_error_message";
+    public static final String LOCALZITION_SQUARE="square";
 	 
 	private CallbackContext callbackContext;
 	private JSONObject params;
@@ -72,6 +73,7 @@ public class ImagePicker extends CordovaPlugin {
             intent.putExtra(LOCALIZATION_PROCESSING_IMAGES_MESSAGE,this.params.has(LOCALIZATION_PROCESSING_IMAGES_MESSAGE)?this.params.getString(LOCALIZATION_PROCESSING_IMAGES_MESSAGE):"");
             intent.putExtra(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER,this.params.has(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER)?this.params.getString(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER):"");
             intent.putExtra(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG,this.params.has(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG)?this.params.getString(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG):"");
+              intent.putExtra(LOCALZITION_SQUARE,this.params.has(LOCALZITION_SQUARE)?this.params.getInt(LOCALZITION_SQUARE):0);
             if (this.cordova != null) {
 				this.cordova.startActivityForResult((CordovaPlugin) this, intent, 0);
 			}

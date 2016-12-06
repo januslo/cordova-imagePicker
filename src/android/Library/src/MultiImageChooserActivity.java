@@ -62,6 +62,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -102,6 +103,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
     public static final String LOCALIZATION_PROCESSING_IMAGES_MESSAGE="processing_images_message";
     public static final String LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER="maximum_selection_count_error_header";
     public static final String LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG="maximum_selection_count_error_message";
+    public static final String LOCALZITION_SQUARE="square";
 
     private ImageAdapter ia;
 
@@ -122,6 +124,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
     private int desiredWidth;
     private int desiredHeight;
     private int quality;
+    private int square;
     private String localizationOk;
     private String localizationDiscard;
     private String localizationMultyChooserName;
@@ -169,6 +172,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         localizationProcessingImagesMessage = getIntent().getStringExtra(LOCALIZATION_PROCESSING_IMAGES_MESSAGE);
         localizationMaximumSelectionCountHeader = getIntent().getStringExtra(LOCALIZATION_MAXIMUM_SELECTION_COUNT_HEADER);
         localizationMaximumSelectionCountMessage = getIntent().getStringExtra(LOCALIZATION_MAXIMUM_SELECTION_COUNT_MSG);
+        square = getIntent().getIntExtra(LOCALZITION_SQUARE,0);
         maxImageCount = maxImages;
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -643,6 +647,34 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
                 Matrix matrix = new Matrix();
                 matrix.setRotate(rotate);
                 bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
+            }
+            try{
+            if(square>0){
+                int height = bmp.getHeight();
+                int width = bmp.getWidth();
+                int newHeight = 0;
+                int newWidth = 0;
+                if(width>height){
+                    newWidth = width;
+                    newHeight = width;
+                    Bitmap newBitMap = Bitmap.createBitmap(newWidth,newHeight,bmp.getConfig());
+                    Canvas canvas = new Canvas(newBitMap);
+                    canvas.drawColor(Color.rgb(0,0,0));
+                    canvas.drawBitmap(bmp, 0, (width-height)/2, null);
+                    bmp = newBitMap;
+                }else{
+                    newWidth = height;
+                    newHeight = height;
+                    Bitmap newBitMap = Bitmap.createBitmap(newWidth,newHeight,bmp.getConfig());
+                    Canvas canvas = new Canvas(newBitMap);
+                    canvas.drawColor(Color.rgb(0,0,0));
+                    canvas.drawBitmap(bmp, (height - width)/2, 0, null);
+                    bmp = newBitMap;
+                }
+                
+            }
+            }catch(Exception e){
+                 throw new IOException("Force square failed.:"+e.getMessage(),e);
             }
             return bmp;
         }

@@ -54,7 +54,8 @@ ImagePicker.prototype.getPictures = function(success, fail, options) {
 		processing_images_header: options.processing_images_header ? options.processing_images_header :"Processing Images",
 		processing_images_message: options.processing_images_message ? options.processing_images_message :"This may take a few moments",
 		maximum_selection_count_error_header: options.maximum_selection_count_error_header ? options.maximum_selection_count_error_header :"Limit reached",
-		maximum_selection_count_error_message: options.maximum_selection_count_error_message ? options.maximum_selection_count_error_message :("You can only select "+(options.maximumImagesCount ? options.maximumImagesCount : 15)+" photos at once.")
+		maximum_selection_count_error_message: options.maximum_selection_count_error_message ? options.maximum_selection_count_error_message :("You can only select "+(options.maximumImagesCount ? options.maximumImagesCount : 15)+" photos at once."),
+		square:(options.square && options.square>0)?options.square:0
 	};
 
 	return cordova.exec(success, fail, "ImagePicker", "getPictures", [params]);
